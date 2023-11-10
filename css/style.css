@@ -1,3 +1,4 @@
+/* Definim propietats de la pàgina*/
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
@@ -6,12 +7,14 @@ body {
   color: #333;
 }
 
+/* Editem els audios de la pàgina. */
 audio {
   display: block;
   width: 100%;
   margin-bottom: -10px;
 }
 
+/* Editem com es veuen es butons. */
 button {
   background-color: #333;
   color: #fff;
@@ -26,12 +29,14 @@ button {
   border-radius: 5px;
 }
 
+/* Editem tots els elements d'entrada de tipus range. */
 input[type=range] {
   width: 10%;
   background-color: #ddd;
   margin: -10px 0;
 }
 
+/* Editem la frase del div perquè es vegui millor. */
 div {
   background-color: #fff;
   padding: 20px;
@@ -39,6 +44,7 @@ div {
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
 
 .fonsPlayer {
   position: relative;
