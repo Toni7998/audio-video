@@ -12,8 +12,9 @@
 </head>
 
 <body>
+    
     <!--Deixem el audio original-->
-    <audio id="myAudio" controls>
+    <audio id="audio" controls>
         <source src="media/techbg.mp3" type="audio/mp3">
         Ho sento, el teu navegador no suporta àudio d'HTML5.
     </audio>
@@ -21,11 +22,26 @@
     <br> <br>
 
     <!--Creem els botons i el slider-->
-    <button id="escuchar">Escuchar</button>
-    <button id="parar">Parar</button>
-    <input type="range" id="volumenSlider" min="0" max="1" step="0.1" value="1">
-    
-    <br> <br> 
+    <button id="escuchar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill"
+            viewBox="0 0 16 16">
+            <path
+                d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
+        </svg>
+    </button>
+    <button id="parar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stop-fill"
+            viewBox="0 0 16 16">
+            <path d="M5 3a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V3z" />
+        </svg>
+    </button>
+
+    <svg width="100" height="10">
+        <line x1="0" y1="5" x2="100" y2="5" stroke="#000" />
+        <circle id="slider" cx="50" cy="5" r="5" fill="#f00" />
+    </svg>
+
+    <br> <br>
     <div style="padding: 1em; margin-bottom: 1em; border: 1px; background-color: #eee;">
         "<a rel="nofollow" class="external text"
             href="https://timtaj.com/royalty-free-music/background-technology">Background Technology</a>"
@@ -35,32 +51,49 @@
             International License</a>
 
     </div>
+
     <script>
         //  Declaramos las variables y agarramos los elementos del html
-        var myAudio = document.getElementById("myAudio");
-        var playButton = document.getElementById("escuchar");
-        var stopButton = document.getElementById("parar");
-        var volumenSlider = document.getElementById("volumenSlider");
+        var audio = document.getElementById("audio");
+        var escuchar = document.getElementById("escuchar");
+        var parar = document.getElementById("parar");
+        var slider = document.getElementById('slider');
+        var isMouseDown = false;
 
         //  Hacemos que funcione el boton de play
-        playButton.addEventListener("click", function () {
-            if (myAudio.paused) {
-                myAudio.play();
+        escuchar.addEventListener("click", function () {
+            if (audio.paused) {
+                audio.play();
             } else {
-                myAudio.pause();
+                audio.pause();
             }
         });
 
         //  Hacemos que funcione el boton de stop
-        stopButton.addEventListener("click", function () {
-            myAudio.pause();
-            myAudio.currentTime = 0;
+        parar.addEventListener("click", function () {
+            audio.pause();
+            audio.currentTime = 0;
         });
 
-        //  Hacemos el slider del volumen
-        volumenSlider.addEventListener("input", function () {
-            myAudio.volume = volumenSlider.value;
+
+        //  Hacemos que funcione el slider
+        slider.addEventListener('mousedown', function () {
+            isMouseDown = true;
         });
+
+        window.addEventListener('mouseup', function () {
+            isMouseDown = false;
+        });
+
+        window.addEventListener('mousemove', function (e) {
+            if (!isMouseDown) return;
+            var x = e.clientX;
+            var svgRect = slider.parentElement.getBoundingClientRect();
+            if (x < svgRect.left) x = svgRect.left;
+            if (x > svgRect.right) x = svgRect.right;
+            slider.setAttribute('cx', x - svgRect.left);
+            audio.volume = (x - svgRect.left) / svgRect.width;
+        })
     </script>
 </body>
 
