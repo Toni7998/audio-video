@@ -12,29 +12,32 @@
 </head>
 
 <body>
-    
+
     <!--Deixem el audio original-->
     <audio id="audio" controls>
         <source src="media/techbg.mp3" type="audio/mp3">
         Ho sento, el teu navegador no suporta àudio d'HTML5.
     </audio>
 
-    <br> <br>
+    <br>
+
+    <!-- Afegim una capa que mostra si l'àudio s'està reproduint: ho fem amb una animació CSS. -->
+    <div class="fonsPlayer">
+        <div class="ocean">
+            <div class="wave"></div>
+            <div class="wave"></div>
+        </div>
+    </div>
+
+    <br>
 
     <!--Creem els botons i el slider-->
-    <button id="escuchar">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill"
-            viewBox="0 0 16 16">
-            <path
-                d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
-        </svg>
-    </button>
-    <button id="parar">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stop-fill"
-            viewBox="0 0 16 16">
-            <path d="M5 3a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V3z" />
-        </svg>
-    </button>
+    <svg id="escuchar" width="50" height="50">
+        <polygon points="10,10 10,40 40,25" fill="#333" />
+    </svg>
+    <svg id="parar" width="50" height="50">
+        <rect x="10" y="10" width="30" height="30" fill="#333" />
+    </svg>
 
     <svg width="100" height="10">
         <line x1="0" y1="5" x2="100" y2="5" stroke="#000" />
@@ -49,7 +52,11 @@
         is licensed under <a rel="nofollow" class="external text"
             href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Attribution-NonCommercial-NoDerivatives 4.0
             International License</a>
+    </div>
 
+    <div style="padding: 1em; margin-bottom: 1em; border: 1px; background-color: #eee;">
+        "Animació CSS de <a rel="nofollow" href="https://codepen.io/tedmcdo">Ted MacDonald</a>:
+        a CodePen <a rel="nofollow" href="https://codepen.io/tedmcdo/pen/PqxKXg">CSS & SVG Waves Animation</a>
     </div>
 
     <script>
@@ -57,15 +64,23 @@
         var audio = document.getElementById("audio");
         var escuchar = document.getElementById("escuchar");
         var parar = document.getElementById("parar");
-        var slider = document.getElementById('slider');
+        var slider = document.getElementById("slider");
         var isMouseDown = false;
 
         //  Hacemos que funcione el boton de play
         escuchar.addEventListener("click", function () {
             if (audio.paused) {
                 audio.play();
+                // Añadir la clase 'playing' a los elementos '.wave'
+                document.querySelectorAll('.wave').forEach(function (wave) {
+                    wave.classList.add('playing');
+                });
             } else {
                 audio.pause();
+                // Eliminar la clase 'playing' de los elementos '.wave'
+                document.querySelectorAll('.wave').forEach(function (wave) {
+                    wave.classList.remove('playing');
+                });
             }
         });
 
@@ -73,8 +88,11 @@
         parar.addEventListener("click", function () {
             audio.pause();
             audio.currentTime = 0;
+            // Eliminar la clase 'playing' de los elementos '.wave'
+            document.querySelectorAll('.wave').forEach(function (wave) {
+                wave.classList.remove('playing');
+            });
         });
-
 
         //  Hacemos que funcione el slider
         slider.addEventListener('mousedown', function () {
