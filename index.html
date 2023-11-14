@@ -1,38 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Demo Àudio i Vídeo</title>
 </head>
+
 <body>
     <audio controls>
         <source src="media/techbg.mp3" type="audio/mp3">
         Ho sento, el teu navegador no suporta àudio d'HTML5.
     </audio>
     <div style="padding: 1em; margin-bottom: 1em; border: 1px; background-color: #eee;">
-        "<a rel="nofollow" class="external text" href="https://timtaj.com/royalty-free-music/background-technology">Background Technology</a>" 
-        by <a rel="nofollow" class="external text" href="https://freemusicarchive.org/music/timtaj/contact">Taj Tim</a> 
-        is licensed under <a rel="nofollow" class="external text" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Attribution-NonCommercial-NoDerivatives 4.0 International License</a>
+        "<a rel="nofollow" class="external text"
+            href="https://timtaj.com/royalty-free-music/background-technology">Background Technology</a>"
+        by <a rel="nofollow" class="external text" href="https://freemusicarchive.org/music/timtaj/contact">Taj Tim</a>
+        is licensed under <a rel="nofollow" class="external text"
+            href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Attribution-NonCommercial-NoDerivatives 4.0
+            International License</a>
     </div>
     <hr>
     <!-- L'etiqueta <video> també accepta varies propietats: height, width, autoplay... 
-         poster permet establir un fons per quan no el vídeo no s'està reproduint.
-    -->
+         poster permet establir un fons per quan no el vídeo no s'està reproduint.-->
     <video controls>
         <!-- podem tenir diversos formats. El repoductor escollirà el primer que reconegui. -->
         <source src="media/metro.mp4" type="video/mp4">
         <source src="media/metro.ogg" type="video/ogg">
         <!-- afegim els subtítols en format WebVTT (Web Video Text Tracks), un per cada idioma
-             El reproductor ens deixa escollir idioma en el seu menú per defecte.
-        -->
+             El reproductor ens deixa escollir idioma en el seu menú per defecte.-->
         <!-- captions: normalment per persones amb discapacitat auditiva, amb descripcions diverses
-             subtitles: per traducció dels diàlegs.
-        -->
+             subtitles: per traducció dels diàlegs.-->
         <track src="media/captions/metro-cat.vtt" label="Català" kind="captions" srclang="es-cat" default>
         <track src="media/captions/metro-es.vtt" label="Espanyol" kind="captions" srclang="es">
         El teu navegador no suporta l'element HTML vídeo.
     </video>
 </body>
+
 </html>
