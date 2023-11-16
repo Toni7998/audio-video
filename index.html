@@ -3,40 +3,79 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Demo Àudio i Vídeo</title>
+    <style>
+        /* Los subtítulos aparecerán en rojo */
+        div {
+            color: red;
+            padding-inline-start: 10%;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+        canvas {
+            color: white, black;
+        }
+    </style>
 </head>
 
 <body>
-    <audio controls>
-        <source src="media/techbg.mp3" type="audio/mp3">
-        Ho sento, el teu navegador no suporta àudio d'HTML5.
-    </audio>
-    
     <div style="padding: 1em; margin-bottom: 1em; border: 1px; background-color: #eee;">
         "<a rel="nofollow" class="external text"
             href="https://timtaj.com/royalty-free-music/background-technology">Background Technology</a>"
         by <a rel="nofollow" class="external text" href="https://freemusicarchive.org/music/timtaj/contact">Taj Tim</a>
         is licensed under <a rel="nofollow" class="external text"
-            href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Attribution-NonCommercial-NoDerivatives
-            4.0International License</a>
+            href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Attribution-NonCommercial-NoDerivatives 4.0
+            International License</a>
     </div>
+
     <hr>
-    <!-- L'etiqueta <video> també accepta varies propietats: height, width, autoplay... 
-         poster permet establir un fons per quan no el vídeo no s'està reproduint.-->
-    <video controls>
-        <!-- podem tenir diversos formats. El repoductor escollirà el primer que reconegui. -->
+
+    <video id="video" controls>
+        <!-- Podemos tener varios formatos. El reproductor elegirá el primero que reconozca. -->
         <source src="media/metro.mp4" type="video/mp4">
         <source src="media/metro.ogg" type="video/ogg">
-        <!-- afegim els subtítols en format WebVTT (Web Video Text Tracks), un per cada idioma
-             El reproductor ens deixa escollir idioma en el seu menú per defecte.-->
-        <!-- captions: normalment per persones amb discapacitat auditiva, amb descripcions diverses
-             subtitles: per traducció dels diàlegs.-->
+
+        <!-- Añadimos los subtítulos en formato WebVTT (Web Video Text Tracks), uno por cada idioma
+             El reproductor nos permite elegir el idioma en su menú por defecto.-->
+
+        <!-- captions: normalmente para personas con discapacidad auditiva, con descripciones diversas
+             subtitles: para traducción de los diálogos.-->
         <track src="media/captions/metro-cat.vtt" label="Català" kind="captions" srclang="es-cat" default>
         <track src="media/captions/metro-es.vtt" label="Espanyol" kind="captions" srclang="es">
         El teu navegador no suporta l'element HTML vídeo.
     </video>
+
+    <!-- Añadimos un botón y un canvas -->
+    <button id="capture">Capturar fotogramas</button>
+    <canvas id="canvas"></canvas>
+
+    <script>
+        document.getElementById('capture').addEventListener('click', function () {
+            var video = document.getElementById('video');
+            var canvas = document.getElementById('canvas');
+            var context = canvas.getContext('2d');
+
+            // Establecemos el ancho y el alto del canvas para que coincida con el del vídeo
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+
+            // Limpiamos el canvas
+            context.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Dibujamos el fotograma actual del vídeo en el canvas
+            context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+
+            // Conviertimos el fotograma a blanco y negro
+            var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+            var data = imageData.data;
+
+            // Ponemos la imagen de nuevo en el canvas
+            context.putImageData(imageData, 0, 0);
+        });
+    </script>
+
 </body>
 
 </html>
